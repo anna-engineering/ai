@@ -5,8 +5,8 @@ namespace Ai;
 class FunctionCallingParameter implements FunctionCallingParameterInterface
 {
     public function __construct(
-        protected(set) FunctionCallingParameterType $type,
         protected(set) string $name,
+        protected(set) FunctionCallingParameterType $type,
         protected(set) string $description,
         protected(set) array $values = [],
         protected(set) bool $required = false,
@@ -19,14 +19,14 @@ class FunctionCallingParameter implements FunctionCallingParameterInterface
         return $this->name;
     }
 
-    public function getDescription() : string
-    {
-        return $this->description;
-    }
-
     public function getType() : string
     {
         return $this->type->value;
+    }
+
+    public function getDescription() : string
+    {
+        return $this->description;
     }
 
     public function getValues() : array
