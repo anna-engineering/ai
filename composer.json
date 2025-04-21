@@ -1,0 +1,19 @@
+{
+  "name": "anna-engineering/ai",
+  "autoload": {
+    "psr-4": {
+      "A\\Ai\\": ["src/A/Ai"]
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "": ["tests/"]
+    }
+  },
+  "require": {
+  },
+  "require-dev": {
+    "phpunit/phpunit": "*",
+    "brianium/paratest": "*"
+  }
+}
