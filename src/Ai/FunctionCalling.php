@@ -2,7 +2,7 @@
 
 namespace Ai;
 
-class FunctionCalling implements FunctionCallingInterface
+class FunctionCalling implements FunctionCallingInterface, \JsonSerializable
 {
     protected(set) array $parameters = [];
 
@@ -18,6 +18,14 @@ class FunctionCalling implements FunctionCallingInterface
         FunctionCallingParameterInterface ...$parameters
     )
     {
+        foreach ($parameters as $parameter)
+        {
+            $this->parameters[$parameter->getName()] = $parameter;
+            if ($parameter->getRequired())
+            {
+                $this->required[] = $parameter->getName();
+            }
+        }
     }
 
     public function getName() : string
@@ -48,5 +56,23 @@ class FunctionCalling implements FunctionCallingInterface
     public function getStrict() : bool
     {
         return $this->strict;
+    }
+
+    public function jsonSerialize() : mixed
+    {
+        return [
+            'type' => 'function',
+            'function' => [
+                'name'        => $this->name,
+                'description' => $this->description,
+                'parameters'  => [
+                    'type'       => 'object',
+                    'properties' => $this->parameters,
+                    'required'   => $this->required,
+                    'additionalProperties' => $this->additionalProperties,
+                ],
+                'strict' => $this->strict,
+            ]
+        ];
     }
 }
