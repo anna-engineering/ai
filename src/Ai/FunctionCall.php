@@ -2,7 +2,7 @@
 
 namespace Ai;
 
-class FunctionCall
+class FunctionCall implements \JsonSerializable
 {
     public function __construct(
         protected(set) string $name,
@@ -24,5 +24,15 @@ class FunctionCall
     public function getArgument($name, $default = null) : mixed
     {
         return $this->arguments[$name] ?? $default;
+    }
+
+    public function jsonSerialize() : array
+    {
+        return [
+            'function' => [
+                'name' => $this->name,
+                ...(count($this->arguments) ? ['arguments' => $this->arguments] : []),
+            ]
+        ];
     }
 }
