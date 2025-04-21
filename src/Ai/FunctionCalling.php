@@ -65,12 +65,12 @@ class FunctionCalling implements FunctionCallingInterface, \JsonSerializable
             'function' => [
                 'name'        => $this->name,
                 'description' => $this->description,
-                'parameters'  => [
+                ...(count($this->parameters) ? ['parameters'  => [
                     'type'       => 'object',
                     'properties' => $this->parameters,
                     'required'   => $this->required,
                     'additionalProperties' => $this->additionalProperties,
-                ],
+                ]] : []),
                 'strict' => $this->strict,
             ]
         ];
