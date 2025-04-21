@@ -2,7 +2,7 @@
   "name": "anna-engineering/ai",
   "autoload": {
     "psr-4": {
-      "A\\Ai\\": ["src/A/Ai"]
+      "Ai\\": ["src/Ai"]
     }
   },
   "autoload-dev": {
