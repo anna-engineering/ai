@@ -2,7 +2,7 @@
 
 namespace Ai;
 
-class FunctionCallingParameter implements FunctionCallingParameterInterface
+class FunctionCallingParameter implements FunctionCallingParameterInterface, \JsonSerializable
 {
     public function __construct(
         protected(set) string $name,
@@ -37,5 +37,14 @@ class FunctionCallingParameter implements FunctionCallingParameterInterface
     public function getRequired() : bool
     {
         return $this->required;
+    }
+
+    public function jsonSerialize() : mixed
+    {
+        return [
+            'type' => $this->type->value,
+            'description' => $this->description,
+            ...(count($this->values) ? ['enum' => $this->values] : []),
+        ];
     }
 }
