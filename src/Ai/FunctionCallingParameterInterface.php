@@ -13,4 +13,8 @@ interface FunctionCallingParameterInterface
     public function getValues() : array;
 
     public function getRequired() : bool;
+
+    public function getItems() : ?array;
+
+    public function getMinItems() : ?int;
 }

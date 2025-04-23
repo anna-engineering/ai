@@ -10,6 +10,8 @@ class FunctionCallingParameter implements FunctionCallingParameterInterface, \Js
         protected(set) string $description,
         protected(set) array $values = [],
         protected(set) bool $required = false,
+        protected(set) ?array $items = null,
+        protected(set) ?int $minitems = null,
     )
     {
     }
@@ -39,12 +41,24 @@ class FunctionCallingParameter implements FunctionCallingParameterInterface, \Js
         return $this->required;
     }
 
+    public function getItems() : ?array
+    {
+        return $this->items;
+    }
+
+    public function getMinItems() : ?int
+    {
+        return $this->minitems;
+    }
+
     public function jsonSerialize() : mixed
     {
         return [
             'type' => $this->type->value,
             'description' => $this->description,
             ...(count($this->values) ? ['enum' => $this->values] : []),
+            ...(is_array($this->items) ? ['items' => $this->items] : []),
+            ...(is_int($this->minitems) ? ['minItems' => $this->minitems] : []),
         ];
     }
 }
